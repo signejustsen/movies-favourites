@@ -190,4 +190,33 @@ function displayExhibitions(exhibitionList) {
     .join("");
 
   exhibitionContainer.innerHTML = html;
+
+    const favoriteButtons = document.querySelectorAll(".favorite-btn");
+
+    favoriteButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+            const exhibitionId = Number (button.dataset.id)
+            toggleFavorite(exhibitionId);
+        });
+    });
 }
+
+    function toggleFavorite(id){
+        if(favoriteIds.includes(id)){
+            favoriteIds = favoriteIds.filter((favoriteId) => {
+                return favoriteId !== id
+            });
+        }
+        else{
+            favoriteIds.push(id);
+        }   
+        
+        localStorage.setItem("favoriteExhibitions", JSON.stringify(favoriteIds));
+
+        displayExhibitions(exhibitions);
+    }
+
+ 
+
+
+displayExhibitions(exhibitions);
